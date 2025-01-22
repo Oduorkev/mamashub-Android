@@ -21,15 +21,7 @@
         <activity
             android:name=".pnc.ChildViewActivity"
             android:exported="false" />
-        <activity
-            android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccineView"
-            android:exported="false" />
-        <activity
-            android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccine"
-            android:exported="false" />
-        <activity
-                android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccineEdit"
-            android:exported="false" />
+
         <activity
             android:name=".pnc.child_civil_registration.ChildCivilRegistrationView"
             android:exported="false" />
