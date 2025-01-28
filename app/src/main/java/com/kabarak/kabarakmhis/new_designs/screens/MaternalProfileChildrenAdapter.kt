@@ -27,7 +27,6 @@ import com.kabarak.kabarakmhis.new_designs.present_pregnancy.PresentPregnancyLis
 import com.kabarak.kabarakmhis.new_designs.previous_pregnancy.PreviousPregnancyList
 import com.kabarak.kabarakmhis.new_designs.tetanus_diptheria.PreventiveServiceList
 import com.kabarak.kabarakmhis.new_designs.weight_monitoring.WeightMonitoringChart
-import com.kabarak.kabarakmhis.pnc.ChildBirthView
 import com.kabarak.kabarakmhis.pnc.inactivated_polio_vaccine.InactivatedPolioVaccineView
 import com.kabarak.kabarakmhis.pnc.ChildViewActivity
 import com.kabarak.kabarakmhis.pnc.child_civil_registration.ChildCivilRegistrationView
