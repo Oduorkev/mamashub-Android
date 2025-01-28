@@ -28,6 +28,7 @@ import com.kabarak.kabarakmhis.new_designs.previous_pregnancy.PreviousPregnancyL
 import com.kabarak.kabarakmhis.new_designs.tetanus_diptheria.PreventiveServiceList
 import com.kabarak.kabarakmhis.new_designs.weight_monitoring.WeightMonitoringChart
 import com.kabarak.kabarakmhis.pnc.ChildBirthView
+import com.kabarak.kabarakmhis.pnc.inactivated_polio_vaccine.InactivatedPolioVaccineView
 import com.kabarak.kabarakmhis.pnc.ChildViewActivity
 import com.kabarak.kabarakmhis.pnc.child_civil_registration.ChildCivilRegistrationView
 
@@ -127,7 +128,7 @@ class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternal
                 // Immunization
                 10.1 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // BCG vaccine
                 10.2 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Polio vaccine
-                10.3 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // IPV (Inactivated Polio Vaccine)
+                10.3 -> { context.startActivity(Intent(context, InactivatedPolioVaccineView::class.java))} // IPV (Inactivated Polio Vaccine)
                 10.4 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Diphtheria/Pertussis/Tetanus/Hepatitis B/Haemophilus Influenza Type B
                 10.5 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Pneumococcal Conjugate Vaccine
                 10.6 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Rotavirus vaccine
