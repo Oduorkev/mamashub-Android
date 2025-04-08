@@ -1,0 +1,233 @@
+{
+  "title": "Child Health Monitoring",
+  "status": "draft",
+  "version": "0.0.1",
+  "publisher": "NHN",
+  "resourceType": "Questionnaire",
+  "subjectType": ["Patient"],
+  "item": [
+    {
+      "linkId": "1.0.0",
+      "type": "group",
+      "text": "A. Particulars of the Child",
+      "item": [
+        {
+          "linkId": "1.1.0",
+          "type": "string",
+          "text": "Name of Child"
+        },
+        {
+          "linkId": "1.2.0",
+          "type": "choice",
+          "text": "Sex of Child",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "male",
+                "display": "Male"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "female",
+                "display": "Female"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "unknown",
+                "display": "Unknown"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "other",
+                "display": "Other"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "1.3.0",
+          "type": "date",
+          "text": "Date of birth"
+        },
+        {
+          "linkId": "1.4.0",
+          "type": "integer",
+          "text": "Gestation at Birth (in weeks)"
+        },
+        {
+          "linkId": "1.5.0",
+          "type": "integer",
+          "text": "Birth Weight (gms)"
+        },
+        {
+          "linkId": "1.6.0",
+          "type": "integer",
+          "text": "Birth Length (cm)"
+        },
+        {
+          "linkId": "1.7.0",
+          "type": "string",
+          "text": "Other Birth Characteristics"
+        },
+        {
+          "linkId": "1.8.0",
+          "type": "string",
+          "text": "Birth Order in family (e.g 1st, 2nd, 3rd born)"
+        },
+        {
+          "linkId": "1.9.0",
+          "type": "date",
+          "text": "Date 1st seen"
+        }
+      ]
+    },
+    {
+      "linkId": "2.0.0",
+      "type": "group",
+      "text": "B. Health Record of Child",
+      "item": [
+        {
+          "linkId": "2.1.0",
+          "type": "choice",
+          "text": "Place of Birth",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "health-facility",
+                "display": "Health Facility"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "home",
+                "display": "Home"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "2.2.0",
+          "type": "string",
+          "text": "Other (Specify)"
+        },
+        {
+          "linkId": "2.3.0",
+          "type": "integer",
+          "text": "Birth Notification No."
+        },
+        {
+          "linkId": "2.4.0",
+          "type": "date",
+          "text": "Date"
+        },
+        {
+          "linkId": "2.5.0",
+          "type": "integer",
+          "text": "Immunization permanent register No."
+        },
+        {
+          "linkId": "2.6.0",
+          "type": "integer",
+          "text": "Child Welfare Clinic (CWC) No."
+        },
+        {
+          "linkId": "2.7.0",
+          "type": "string",
+          "text": "Health facility name"
+        },
+        {
+          "linkId": "2.8.0",
+          "type": "integer",
+          "text": "Master facility list (KMHFL) Code"
+        }
+      ]
+    },
+    {
+      "linkId": "3.0.0",
+      "type": "group",
+      "text": "C. Civil Registration",
+      "item": [
+        {
+          "linkId": "3.1.0",
+          "type": "integer",
+          "text": "Birth Certificate No."
+        },
+        {
+          "linkId": "3.2.0",
+          "type": "date",
+          "text": "Date of registration"
+        },
+        {
+          "linkId": "3.3.0",
+          "type": "string",
+          "text": "Place of registration"
+        },
+        {
+          "linkId": "3.4.0",
+          "type": "string",
+          "text": "Any congenital abnormalities (cleft lip, club foot.. etc)"
+        }
+      ]
+    },
+    {
+      "linkId": "4.0.0",
+      "type": "group",
+      "text": "D. Family Details",
+      "item": [
+        {
+          "linkId": "4.1.0",
+          "type": "string",
+          "text": "Father's name"
+        },
+        {
+          "linkId": "4.2.0",
+          "type": "integer",
+          "text": "Tel No."
+        },
+        {
+          "linkId": "4.3.0",
+          "type": "string",
+          "text": "Mother's Name"
+        },
+        {
+          "linkId": "4.4.0",
+          "type": "integer",
+          "text": "Tel No"
+        },
+        {
+          "linkId": "4.5.0",
+          "type": "string",
+          "text": "Guardian's name (where applicable)"
+        },
+        {
+          "linkId": "4.6.0",
+          "type": "string",
+          "text": "Residence of child"
+        },
+        {
+          "linkId": "4.7.0",
+          "type": "string",
+          "text": "Division"
+        },
+        {
+          "linkId": "4.8.0",
+          "type": "string",
+          "text": "Town/Trading center/Ward"
+        },
+        {
+          "linkId": "4.9.0",
+          "type": "string",
+          "text": "Estate & House No./Village"
+        },
+        {
+          "linkId": "4.10.0",
+          "type": "string",
+          "text": "Postal address"
+        }
+      ]
+    }
+  ]
+}
