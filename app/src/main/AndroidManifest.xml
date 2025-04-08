@@ -19,22 +19,16 @@
         android:windowSoftInputMode="adjustPan"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".pnc.ChildViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccineView"
             android:exported="false" />
         <activity
-            android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccineEdit"
-            android:exported="false" />
-
-        <activity
-            android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccineAdapter"
-            android:exported="false" />
-
-        <activity
             android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccine"
-            android:exported="false"
-            android:theme="@style/Theme.KabarakMHIS" />
+            android:exported="false" />
         <activity
-            android:name=".pnc.child_civil_registration.ChildCivilRegistrationEdit"
+                android:name=".pnc.inactivated_polio_vaccine.InactivatedPolioVaccineEdit"
             android:exported="false" />
         <activity
             android:name=".pnc.child_civil_registration.ChildCivilRegistrationView"
@@ -43,8 +37,11 @@
             android:name=".pnc.child_civil_registration.ChildCivilRegistration"
             android:exported="false" />
         <activity
-            android:name=".pnc.ChildViewActivity"
+            android:name=".pnc.child_civil_registration.ChildCivilRegistrationEdit"
             android:exported="false" />
+        <activity
+            android:name=".pnc.child_civil_registration.CivilRegistrationDetails"
+            android:exported="false"/>
         <activity
             android:name=".pnc.ChildEdit"
             android:exported="false" />
