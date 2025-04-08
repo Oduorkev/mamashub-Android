@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+//inactivated polio vaccine class
 class InactivatedPolioVaccine: AppCompatActivity() {
 
     private lateinit var retrofitCallsFhir: RetrofitCallsFhir

@@ -34,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_inactivated_polio_vaccine_view.tv
 import org.hl7.fhir.r4.model.DateType
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 
+//inactivated polio vaccine view class
 class InactivatedPolioVaccineView : AppCompatActivity() {
 
     private lateinit var childRecyclerView: RecyclerView

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kabarak.kabarakmhis.R
 import com.kabarak.kabarakmhis.pnc.data_class.IPV
-
+//inactivated polio vaccine adapter class
 class InactivatedPolioVaccineAdapter(
     private val ipvs: MutableList<IPV>,
     private val onIPVClick: (String) -> Unit // Lambda function to handle child click
