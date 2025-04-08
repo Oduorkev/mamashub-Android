@@ -14,6 +14,7 @@ class ChildAdapter(
 ) : RecyclerView.Adapter<ChildAdapter.ChildViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildViewHolder {
+
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_child, parent, false) // view is a LinearLayout
         return ChildViewHolder(view)

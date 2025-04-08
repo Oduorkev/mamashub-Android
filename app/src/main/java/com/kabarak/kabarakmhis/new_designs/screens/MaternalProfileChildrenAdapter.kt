@@ -47,6 +47,7 @@ import com.kabarak.kabarakmhis.pnc.diphtheria.DiphtheriaView
 import com.kabarak.kabarakmhis.pnc.childpostnatalcare.ChildPncViewActivity
 import com.kabarak.kabarakmhis.immunisation.vitamin_a_supplimentary.VitaminAsupplimentaryView
 import com.kabarak.kabarakmhis.pnc.Other_Vaccines.VaccinesViewActivity
+import com.kabarak.kabarakmhis.pnc.babyTeethRecord.BabyTeethViewRecord
 
 
 class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternalProfileChild>,
@@ -140,7 +141,7 @@ class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternal
                 9.5 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))}
 
                 // Record of Baby’s Teeth Development (Duplicate for clarity if needed)
-                9.6 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))}
+                9.6 -> { context.startActivity(Intent(context, BabyTeethViewRecord::class.java))}
 
                 // Reason for Special Care (Duplicate for additional entry if applicable)
                 9.7 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))}

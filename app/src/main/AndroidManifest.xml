@@ -19,6 +19,15 @@
         android:windowSoftInputMode="adjustPan"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".pnc.babyTeethRecord.BabyTeethEdit"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.babyTeethRecord.BabyTeethViewRecord"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.babyTeethRecord.BabyTeethDevelopmentRecord"
+            android:exported="false" />
+        <activity
             android:name=".immunisation.vitamin_a_supplimentary.VitaminAsupplimentaryAdd"
             android:exported="false" />
         <activity
@@ -94,6 +103,9 @@
         <activity
             android:name=".pnc.child_civil_registration.CivilRegistrationDetails"
             android:exported="false"/>
+<!--        <activity-->
+<!--            android:name=".pnc.ChildView"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".pnc.ChildEdit"
             android:exported="false" />

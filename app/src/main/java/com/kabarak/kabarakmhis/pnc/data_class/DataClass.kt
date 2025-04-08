@@ -141,3 +141,9 @@ data class Vaccines(
     val VaccineName: String,
     val VaccineDate: String,
 )
+data class BabyTeethRecordDataClass(
+    val id: String,
+    val dateSeen: String,
+    val ageWhenSeen: String,
+    val teethType: String?
+)
