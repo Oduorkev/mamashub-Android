@@ -11,6 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kabarak.kabarakmhis.R
 import com.kabarak.kabarakmhis.helperclass.DbMaternalProfileChild
+
+import com.kabarak.kabarakmhis.immunisation.pnemococal_conjugate_vaccine.PnemococalConjugateServiceList
+import com.kabarak.kabarakmhis.immunisation.yellowfevervaccine.YellowFeverServiceList
+
 import com.kabarak.kabarakmhis.new_designs.antenatal_profile.AntenatalProfileView
 import com.kabarak.kabarakmhis.new_designs.birth_plan.BirthPlanView
 import com.kabarak.kabarakmhis.new_designs.chw.referral.ReferralView
@@ -30,6 +34,13 @@ import com.kabarak.kabarakmhis.new_designs.weight_monitoring.WeightMonitoringCha
 import com.kabarak.kabarakmhis.pnc.ChildBirthView
 import com.kabarak.kabarakmhis.pnc.ChildViewActivity
 import com.kabarak.kabarakmhis.pnc.child_civil_registration.ChildCivilRegistrationView
+import com.kabarak.kabarakmhis.pnc.diphtheria.DiphtheriaView
+
+import com.kabarak.kabarakmhis.pnc.childpostnatalcare.ChildPncViewActivity
+import com.kabarak.kabarakmhis.immunisation.vitamin_a_supplimentary.VitaminAsupplimentaryView
+import com.kabarak.kabarakmhis.pnc.Other_Vaccines.VaccinesViewActivity
+import com.kabarak.kabarakmhis.pnc.babyTeethRecord.BabyTeethViewRecord
+
 
 
 class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternalProfileChild>,
@@ -119,22 +130,25 @@ class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternal
                 9.5 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))}
 
                 // Record of Baby’s Teeth Development (Duplicate for clarity if needed)
-                9.6 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))}
+                9.6 -> { context.startActivity(Intent(context, BabyTeethViewRecord::class.java))}
 
                 // Reason for Special Care (Duplicate for additional entry if applicable)
                 9.7 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))}
 
                 // Immunization
-                10.1 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // BCG vaccine
-                10.2 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Polio vaccine
-                10.3 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // IPV (Inactivated Polio Vaccine)
-                10.4 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Diphtheria/Pertussis/Tetanus/Hepatitis B/Haemophilus Influenza Type B
-                10.5 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Pneumococcal Conjugate Vaccine
+                10.1 -> { context.startActivity(Intent(context, BcgAddActivity::class.java))} // BCG vaccine
+                10.2 -> { context.startActivity(Intent(context, PolioAddActivity::class.java))} // Polio vaccine
+                10.3 -> { context.startActivity(Intent(context, MeaslesImmunizationAddActivity::class.java))} // IPV (Inactivated Polio Vaccine)
+                10.4 -> { context.startActivity(Intent(context, DiphtheriaView::class.java))} // Diphtheria/Pertussis/Tetanus/Hepatitis B/Haemophilus Influenza Type B
+                10.5 -> { context.startActivity(Intent(context, PnemococalConjugateServiceList::class.java))} // Pneumococcal Conjugate Vaccine
                 10.6 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Rotavirus vaccine
-                10.7 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Measles vaccine (MR)
-                10.8 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Yellow fever vaccine
+
+                10.7 -> { context.startActivity(Intent(context, MeaslesImmunizationViewActivity::class.java))} // Measles vaccine (MR)
+                10.8 -> { context.startActivity(Intent(context, YellowFeverServiceList::class.java))} // Yellow fever vaccine
                 10.9 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Meningococcal vaccine
-                11.1 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Other vaccines as applicable
+                11.1 -> { context.startActivity(Intent(context, VaccinesViewActivity::class.java))} // Other vaccines as applicable
+                11.2 -> { context.startActivity(Intent(context, VitaminAsupplimentaryView::class.java))} // vitamin A
+
 
 
             }

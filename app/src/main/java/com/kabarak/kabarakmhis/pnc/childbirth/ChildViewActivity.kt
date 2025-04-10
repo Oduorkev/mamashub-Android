@@ -1,4 +1,4 @@
-package com.kabarak.kabarakmhis.pnc.diphtheria
+package com.kabarak.kabarakmhis.pnc.childbirth
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kabarak.kabarakmhis.R
 import com.kabarak.kabarakmhis.fhir.FhirApplication
 import com.kabarak.kabarakmhis.helperclass.FormatterClass
-import com.kabarak.kabarakmhis.pnc.data_class.Diphtheria
+import com.kabarak.kabarakmhis.pnc.data_class.Child
 import com.kabarak.kabarakmhis.fhir.viewmodels.PatientDetailsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,14 +27,14 @@ import retrofit2.Response
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.FhirEngine
 import com.kabarak.kabarakmhis.network_request.requests.RetrofitCallsFhir
-import kotlinx.android.synthetic.main.activity_diphtheria_view.*
+import kotlinx.android.synthetic.main.activity_child_birth_view.*
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 
-class DiphtheriaView : AppCompatActivity() {
+class ChildViewActivity : AppCompatActivity() {
 
-    private lateinit var diphtheriaRecyclerView: RecyclerView
-    private lateinit var diphtheriaAdapter: DiphtheriaAdapter
-    private var diphtherias: MutableList<Diphtheria> = mutableListOf()
+    private lateinit var childRecyclerView: RecyclerView
+    private lateinit var childAdapter: ChildAdapter
+    private var children: MutableList<Child> = mutableListOf()
     private lateinit var retrofitCallsFhir: RetrofitCallsFhir
     private lateinit var noRecordView: View  // View for the no_record layout
 
@@ -46,7 +46,7 @@ class DiphtheriaView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_diphtheria_view)
+        setContentView(R.layout.activity_child_birth_view)
 
         // Initialize FHIR engine and formatter
         formatter = FormatterClass()
@@ -62,23 +62,23 @@ class DiphtheriaView : AppCompatActivity() {
         )[PatientDetailsViewModel::class.java]
 
         btnAdd.setOnClickListener {
-            val intent = Intent(this, DiphtheriaAdd::class.java)
+            val intent = Intent(this, ChildAdd::class.java)
             startActivity(intent)
         }
 
         // Initialize RecyclerView
-        diphtheriaRecyclerView = findViewById(R.id.recycler_view_diphtheria)
-        diphtheriaRecyclerView.layoutManager = LinearLayoutManager(this)
+        childRecyclerView = findViewById(R.id.recycler_view_child)
+        childRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        diphtheriaAdapter = DiphtheriaAdapter(diphtherias) { rawResponseId ->
+        childAdapter = ChildAdapter(children) { rawResponseId ->
             val responseId = extractResponseId(rawResponseId)
             Toast.makeText(this, "Response ID: $responseId", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this, DiphtheriaDetails::class.java)
+            val intent = Intent(this, ChildEdit::class.java)
             intent.putExtra("responseId", responseId)
             startActivity(intent)
         }
-        diphtheriaRecyclerView.adapter = diphtheriaAdapter
+        childRecyclerView.adapter = childAdapter
 
         // Initialize noRecordView (the include layout for "no records found")
         noRecordView = findViewById(R.id.no_record)
@@ -86,8 +86,8 @@ class DiphtheriaView : AppCompatActivity() {
         // Initialize RetrofitCallsFhir
         retrofitCallsFhir = RetrofitCallsFhir()
 
-        // Fetch diphtheria data from FHIR server
-        fetchDiphtheriaDataFromFHIR()
+        // Fetch child data from FHIR server
+        fetchChildrenFromFHIR()
 
         // Fetch patient data
         fetchPatientData()
@@ -96,13 +96,13 @@ class DiphtheriaView : AppCompatActivity() {
     private fun fetchPatientData() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val patientLocalName = formatter.retrieveSharedPreference(this@DiphtheriaView, "patientName")
-                val patientLocalDob = formatter.retrieveSharedPreference(this@DiphtheriaView, "dob")
-                val patientLocalIdentifier = formatter.retrieveSharedPreference(this@DiphtheriaView, "identifier")
+                val patientLocalName = formatter.retrieveSharedPreference(this@ChildViewActivity, "patientName")
+                val patientLocalDob = formatter.retrieveSharedPreference(this@ChildViewActivity, "dob")
+                val patientLocalIdentifier = formatter.retrieveSharedPreference(this@ChildViewActivity, "identifier")
 
                 if (patientLocalName.isNullOrEmpty()) {
                     CoroutineScope(Dispatchers.Main).launch {
-                        val progressDialog = ProgressDialog(this@DiphtheriaView)
+                        val progressDialog = ProgressDialog(this@ChildViewActivity)
                         progressDialog.setTitle("Please wait...")
                         progressDialog.setMessage("Fetching patient details...")
                         progressDialog.show()
@@ -117,11 +117,11 @@ class DiphtheriaView : AppCompatActivity() {
                             patientName = patientData.first
                             dob = patientData.second
 
-                            formatter.saveSharedPreference(this@DiphtheriaView, "patientName", patientName)
-                            formatter.saveSharedPreference(this@DiphtheriaView, "dob", dob)
+                            formatter.saveSharedPreference(this@ChildViewActivity, "patientName", patientName)
+                            formatter.saveSharedPreference(this@ChildViewActivity, "dob", dob)
 
                             if (identifier.isNotEmpty()) {
-                                formatter.saveSharedPreference(this@DiphtheriaView, "identifier", identifier)
+                                formatter.saveSharedPreference(this@ChildViewActivity, "identifier", identifier)
                             }
                         }.join()
 
@@ -134,7 +134,7 @@ class DiphtheriaView : AppCompatActivity() {
                     showPatientDetails(patientLocalName, patientLocalDob, patientLocalIdentifier)
                 }
             } catch (e: Exception) {
-                Log.e("DiphtheriaView", "Error fetching patient data: ${e.message}")
+                Log.e("ChildViewActivity", "Error fetching patient data: ${e.message}")
             }
         }
     }
@@ -154,14 +154,14 @@ class DiphtheriaView : AppCompatActivity() {
         return Pair(patientName, dob)
     }
 
-    private fun fetchDiphtheriaDataFromFHIR() {
+    private fun fetchChildrenFromFHIR() {
         lifecycleScope.launch(Dispatchers.IO) {
             retrofitCallsFhir.fetchAllQuestionnaireResponses(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
                         response.body()?.let { responseBody ->
                             val rawResponse = responseBody.string()
-                            Log.d("DiphtheriaView", "Raw Response body: $rawResponse")
+                            Log.d("ChildViewActivity", "Raw Response body: $rawResponse")
 
                             if (rawResponse.isNotEmpty()) {
                                 try {
@@ -170,29 +170,29 @@ class DiphtheriaView : AppCompatActivity() {
                                     val bundle = parser.parseResource(org.hl7.fhir.r4.model.Bundle::class.java, rawResponse)
 
                                     // Clear list before adding new items
-                                    diphtherias.clear()
+                                    children.clear()
 
-                                    // Extract diphtheria data from the bundle
-                                    extractDiphtheriaFromBundle(bundle)
+                                    // Extract child data from the bundle
+                                    extractChildrenFromBundle(bundle)
 
-                                    // Show/hide views based on the presence of diphtheria records
+                                    // Show/hide views based on the presence of children
                                     runOnUiThread { toggleViews() }
                                 } catch (e: Exception) {
-                                    Log.e("DiphtheriaView", "Error parsing response", e)
+                                    Log.e("ChildViewActivity", "Error parsing response", e)
                                     runOnUiThread {
-                                        Toast.makeText(this@DiphtheriaView, "Failed to parse response", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@ChildViewActivity, "Failed to parse response", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             } else {
                                 runOnUiThread {
-                                    Toast.makeText(this@DiphtheriaView, "Received an empty response", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@ChildViewActivity, "Received an empty response", Toast.LENGTH_SHORT).show()
                                     toggleViews()
                                 }
                             }
                         }
                     } else {
                         runOnUiThread {
-                            Toast.makeText(this@DiphtheriaView, "Failed to fetch data: ${response.message()}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@ChildViewActivity, "Failed to fetch data: ${response.message()}", Toast.LENGTH_SHORT).show()
                             toggleViews()
                         }
                     }
@@ -200,8 +200,8 @@ class DiphtheriaView : AppCompatActivity() {
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     runOnUiThread {
-                        Log.e("DiphtheriaView", "Error occurred while fetching data", t)
-                        Toast.makeText(this@DiphtheriaView, "Error occurred: ${t.message}", Toast.LENGTH_SHORT).show()
+                        Log.e("ChildViewActivity", "Error occurred while fetching data", t)
+                        Toast.makeText(this@ChildViewActivity, "Error occurred: ${t.message}", Toast.LENGTH_SHORT).show()
                         toggleViews()
                     }
                 }
@@ -209,76 +209,62 @@ class DiphtheriaView : AppCompatActivity() {
         }
     }
 
-    private fun extractDiphtheriaFromBundle(bundle: org.hl7.fhir.r4.model.Bundle) {
+    private fun extractChildrenFromBundle(bundle: org.hl7.fhir.r4.model.Bundle) {
         for (entry in bundle.entry) {
             val resource = entry.resource
             if (resource is QuestionnaireResponse) {
-                // Extract diphtheria from each QuestionnaireResponse
-                extractDiphtheriaFromQuestionnaire(resource)
+                // Extract child from each QuestionnaireResponse
+                extractChildrenFromQuestionnaire(resource)
             }
         }
 
-        // Notify the adapter to update the UI with the new diphtheria data
+        // Notify the adapter to update the UI with the new children data
         runOnUiThread {
-            diphtheriaAdapter.notifyDataSetChanged()
+            childAdapter.notifyDataSetChanged()
         }
     }
 
-    private fun extractDiphtheriaFromQuestionnaire(questionnaireResponse: QuestionnaireResponse) {
+    private fun extractChildrenFromQuestionnaire(questionnaireResponse: QuestionnaireResponse) {
         val responseId = questionnaireResponse.id
 
-        // Check if a diphtheria record with this ID already exists to avoid duplicates
-        if (diphtherias.any { it.id == responseId }) {
-            Log.d("DiphtheriaView", "Diphtheria record with ID $responseId already exists. Skipping duplicate.")
+        // Check if a child with this ID already exists to avoid duplicates
+        if (children.any { it.id == responseId }) {
+            Log.d("ChildViewActivity", "Child with ID $responseId already exists. Skipping duplicate.")
             return
         }
-        var dose: String? = null
-        var dateGiven: String? = null
-        var nextVisitDate: String? = null
-        var batch: String? = null
-        var lotNumber: String? = null
-        var manufacturer: String? = null
-        var expiryDate: String? = null
 
-        // Iterate over each item in the questionnaire response
+        var name: String? = null
+        var birthDate: String? = null
+
         for (item in questionnaireResponse.item) {
-            // Check the linkId to assign values to the correct variables
-            when (item.linkId) {
-                "7245469372851" -> dose = item.answer.firstOrNull()?.valueCoding?.display
-                "1706243778715", "326494514561", "964674084101" -> dateGiven = item.answer.firstOrNull()?.valueDateType?.valueAsString
-                "837211414406", "217550121148" -> nextVisitDate = item.answer.firstOrNull()?.valueDateType?.valueAsString
-                "623710444302", "670034935729", "988275944803" -> batch = item.answer.firstOrNull()?.valueCoding.toString()
-                "5130109776129", "149322105195", "766906389085" -> lotNumber = item.answer.firstOrNull()?.valueCoding.toString()
-                "5096787115259", "427047554544", "561522366666" -> manufacturer = item.answer.firstOrNull()?.valueCoding.toString()
-                "130764843510", "989835392078", "939052861601" -> expiryDate = item.answer.firstOrNull()?.valueDateType?.valueAsString
+            if (item.linkId == "b9dd593a-733a-411b-d712-fdd732009ab7") {
+                for (subItem in item.item) {
+                    when (subItem.linkId) {
+                        "45fa0395-7045-4c08-823d-281d6a92ce4e" -> {
+                            name = subItem.answer.firstOrNull()?.valueIntegerType?.value.toString()
+                        }
+                        "230bb940-0dd2-492a-ad04-46bcf5933117" -> {
+                            birthDate = subItem.answer.firstOrNull()?.valueStringType?.value.toString()
+                        }
+
+                    }
+                }
             }
         }
 
-        // Display parsed values
-        Log.d("DiphtheriaView", "Dose: $dose")
-        Log.d("DiphtheriaView", "Date Given: $dateGiven")
-        Log.d("DiphtheriaView", "Next Visit Date: $nextVisitDate")
-        Log.d("DiphtheriaView", "Batch Number: $batch")
-        Log.d("DiphtheriaView", "Lot Number: $lotNumber")
-        Log.d("DiphtheriaView", "Manufacturer: $manufacturer")
-        Log.d("DiphtheriaView", "Expiry Date: $expiryDate")
+//        for (item in questionnaireResponse.item) {
+//            if (item.linkId == "80386f59-d7e4-46bf-f179-406a73ff089e") {
+//                apgar = item.answer.firstOrNull()?.valueStringType?.value.toString()
+//            }else if (item.linkId == "eceabdff-ffd7-4631-804f-18b656108333") {
+//                condition = item.answer.firstOrNull()?.valueStringType?.value.toString()
+//            }
+//        }
 
-        // Check required fields and add Diphtheria record if valid
-        if (!dose.isNullOrEmpty() && !dateGiven.isNullOrEmpty() && !nextVisitDate.isNullOrEmpty()) {
-            val diphtheria = Diphtheria(
-                id = responseId,
-                dose = dose,
-                date = dateGiven,
-                nextDate = nextVisitDate,
-                batch = batch,
-                lotnumber = lotNumber,
-                manufacturer = manufacturer,
-                expiryDate = expiryDate
-            )
-            diphtherias.add(diphtheria)
-            Log.d("DiphtheriaView", "Added diphtheria record: Dose: $dose, Date Given: $dateGiven, Next Visit Date: $nextVisitDate, Response ID: $responseId")
-        } else {
-            Log.d("DiphtheriaView", "Incomplete data, Diphtheria record not added.")
+        // Add the child if both name and birth date are available
+        if (!name.isNullOrEmpty() && !birthDate.isNullOrEmpty()) {
+            val child = Child(id = responseId, name = name,  birthDate= birthDate)
+            children.add(child)
+            Log.d("ChildViewActivity", "Added child: $name, dob: $birthDate, Response ID: $responseId")
         }
     }
 
@@ -290,11 +276,11 @@ class DiphtheriaView : AppCompatActivity() {
 
     // Function to toggle visibility of the RecyclerView and noRecordView
     private fun toggleViews() {
-        if (diphtherias.isEmpty()) {
-            diphtheriaRecyclerView.visibility = View.GONE
+        if (children.isEmpty()) {
+            childRecyclerView.visibility = View.GONE
             noRecordView.visibility = View.VISIBLE
         } else {
-            diphtheriaRecyclerView.visibility = View.VISIBLE
+            childRecyclerView.visibility = View.VISIBLE
             noRecordView.visibility = View.GONE
         }
     }

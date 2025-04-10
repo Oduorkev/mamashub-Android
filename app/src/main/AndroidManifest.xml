@@ -19,6 +19,33 @@
         android:windowSoftInputMode="adjustPan"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".pnc.babyTeethRecord.BabyTeethEdit"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.babyTeethRecord.BabyTeethViewRecord"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.babyTeethRecord.BabyTeethDevelopmentRecord"
+            android:exported="false" />
+        <activity
+            android:name=".immunisation.vitamin_a_supplimentary.VitaminAsupplimentaryAdd"
+            android:exported="false" />
+        <activity
+            android:name=".immunisation.vitamin_a_supplimentary.VitaminAsupplimentaryEdit"
+            android:exported="false" />
+        <activity
+            android:name=".immunisation.vitamin_a_supplimentary.VitaminAsupplimentaryView"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.childpostnatalcare.ChildPostnatalCare"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.childpostnatalcare.ChildPncViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.childpostnatalcare.ChildPncEdit"
+            android:exported="false" />
+        <activity
             android:name=".pnc.ChildViewActivity"
             android:exported="false" />
         <activity
@@ -34,7 +61,13 @@
             android:name=".pnc.child_civil_registration.ChildCivilRegistrationView"
             android:exported="false" />
         <activity
+            android:name=".pnc.ChildProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".pnc.child_civil_registration.ChildCivilRegistration"
+            android:exported="false" />
+        <activity
+            android:name=".pnc.bcgvacination.BcgAddActivity"
             android:exported="false" />
         <activity
             android:name=".pnc.child_civil_registration.ChildCivilRegistrationEdit"
@@ -42,15 +75,36 @@
         <activity
             android:name=".pnc.child_civil_registration.CivilRegistrationDetails"
             android:exported="false"/>
+<!--        <activity-->
+<!--            android:name=".pnc.ChildView"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".pnc.ChildEdit"
             android:exported="false" />
         <activity
             android:name=".pnc.ChildAdd"
             android:exported="false" />
+
         <activity
             android:name=".pnc.ChildBirthView"
             android:exported="false" />
+
+        <activity
+            android:name=".pnc.ChildAdd"
+            android:exported="true" />
+
+        <activity
+            android:name=".pnc.Other_Vaccines.VaccinesViewActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name=".pnc.Other_Vaccines.VaccinesAdd"
+            android:exported="true"/>
+
+        <activity
+            android:name=".pnc.Other_Vaccines.VaccinesEdit"
+            android:exported="true"/>
+
         <activity
             android:name=".new_designs.screens.UpcomingAppointments"
             android:exported="false"

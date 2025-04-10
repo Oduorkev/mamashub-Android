@@ -1,0 +1,514 @@
+{
+  "resourceType": "Questionnaire",
+  "language": "nb-NO",
+  "id": "6306001f-ebc2-4257-83c3-d92a766254e5",
+  "status": "draft",
+  "publisher": "NHN",
+  "meta": {
+    "profile": [
+      "http://ehelse.no/fhir/StructureDefinition/sdf-Questionnaire"
+    ],
+    "tag": [
+      {
+        "system": "urn:ietf:bcp:47",
+        "code": "nb-NO",
+        "display": "Bokmål"
+      }
+    ],
+    "security": [
+      {
+        "code": "3",
+        "display": "Helsehjelp (Full)",
+        "system": "urn:oid:2.16.578.1.12.4.1.1.7618"
+      }
+    ]
+  },
+  "contact": [
+    {
+      "name": "http://www.nhn.no"
+    }
+  ],
+  "subjectType": [
+    "Patient"
+  ],
+  "extension": [
+    {
+      "url": "http://helsenorge.no/fhir/StructureDefinition/sdf-sidebar",
+      "valueCoding": {
+        "system": "http://helsenorge.no/fhir/ValueSet/sdf-sidebar",
+        "code": "1"
+      }
+    },
+    {
+      "url": "http://helsenorge.no/fhir/StructureDefinition/sdf-information-message",
+      "valueCoding": {
+        "system": "http://helsenorge.no/fhir/ValueSet/sdf-information-message",
+        "code": "1"
+      }
+    },
+    {
+      "url": "http://helsenorge.no/fhir/StructureDefintion/sdf-itemControl-visibility",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://helsenorge.no/fhir/CodeSystem/AttachmentRenderOptions",
+            "code": "hide-help",
+            "display": "Hide help texts"
+          },
+          {
+            "system": "http://helsenorge.no/fhir/CodeSystem/AttachmentRenderOptions",
+            "code": "hide-sublabel",
+            "display": "Hide sublabel texts"
+          }
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "linkId": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+      "type": "choice",
+      "text": "Baby Teeth Development",
+      "required": true,
+      "answerOption": [
+        {
+          "valueCoding": {
+            "id": "d7cc10c8-5abe-41d8-9246-e6500867cf5c",
+            "code": "LowerIncisor",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Lower Incisor present?  (4-10 Months)"
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "691d1f98-f8fb-4a61-80fd-33e37f165977",
+            "code": "upperIncisor",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Upper Incisor Present? (6-12 months)"
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "25bc28b9-d7c1-4deb-a00e-c6fcef71d18e",
+            "code": "lowerCanine",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Lower Canine Present? (12-23 months)"
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "042204e5-de41-44c3-8a8e-46d546fab7be",
+            "code": "upperCanine",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Upper Canine present?(12-23 months)"
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "1e547f0e-d56e-474c-dd95-0eda2715de91",
+            "code": "lowerFirstMolar",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Lower First Molar Present?(12-18 months)"
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "60516541-6844-48b1-cbc1-26e677f1c9ea",
+            "code": "upperFirstMolar",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Upper First Molar?(12-18 months)"
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "823ec44c-bb5a-442c-c8ee-745a203744ae",
+            "code": "lowerSecondMolar",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Lower Second Molar(24-30 months)?' "
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "155917e2-f107-466c-93ad-e63f06eda257",
+            "code": "upperSecondMolar",
+            "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+            "display": "Upper second Molar present? (24-30 months)?"
+          }
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/ValueSet/questionnaire-item-control",
+                "code": "drop-down"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://helsenorge.no/fhir/StructureDefinition/sdf-sublabel",
+          "valueMarkdown": "Select Teeth Type"
+        }
+      ],
+      "item": [
+        {
+          "linkId": "f1ed5d7d-620c-4616-d65a-116d230eaed2",
+          "type": "integer",
+          "text": "Age of baby when Lower Incisor seen (4-10 months)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 4
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 10
+            },
+            {
+              "url": "http://ehelse.no/fhir/StructureDefinition/validationtext",
+              "valueString": "Must Be between 4-10 Months"
+            }
+          ],
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "LowerIncisor"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "29c06a8c-2859-4534-81d8-f37da7d204bd",
+          "type": "date",
+          "text": "If  Present?, date seen",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "LowerIncisor"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "6c40bb81-0467-4545-8c17-5c434a96da02",
+          "type": "integer",
+          "text": "Age of baby when Upper Incisor seen (6-12 months)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 6
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 12
+            },
+            {
+              "url": "http://ehelse.no/fhir/StructureDefinition/validationtext",
+              "valueString": "Must be between 6-12 months"
+            }
+          ],
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperIncisor"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "d6762c31-9e5b-4920-b819-192093dd51c4",
+          "type": "date",
+          "text": "If present? Date Seen.",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperIncisor"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "ebc7dacd-45d8-4b70-c14d-037d096672e8",
+          "type": "integer",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 12
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 23
+            },
+            {
+              "url": "http://ehelse.no/fhir/StructureDefinition/validationtext",
+              "valueString": "Must be between 12-23 Months"
+            }
+          ],
+          "required": false,
+          "text": "Age of baby when Lower Canine seen (12-23 months)",
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "lowerCanine"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "cab9310c-d2f7-423e-85f6-888589013376",
+          "type": "date",
+          "text": "If present? Date seen",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "lowerCanine"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "b7574308-f4b4-4f8b-8f43-8b8b22536fa4",
+          "type": "integer",
+          "text": "Age of Baby when Upper Canine is seen(12-23 months)",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperCanine"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 12
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 23
+            },
+            {
+              "url": "http://ehelse.no/fhir/StructureDefinition/validationtext",
+              "valueString": "Should be between 12-23 months"
+            }
+          ]
+        },
+        {
+          "linkId": "bbf33c2f-9ca3-4c96-8be2-fd342730df00",
+          "type": "date",
+          "text": "If prensent? date seen.",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperCanine"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "2df30fe4-d530-48e3-813c-a50e599674a5",
+          "type": "integer",
+          "text": "Age of baby when Lower First Molar seen(12-18 Months)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 12
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 28
+            },
+            {
+              "url": "http://ehelse.no/fhir/StructureDefinition/validationtext",
+              "valueString": "Age Must Be 12-28 months!"
+            }
+          ],
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "lowerFirstMolar"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "dba37247-df87-47d6-8682-4d82938d37c0",
+          "type": "date",
+          "text": "If present? Date seen.",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "lowerFirstMolar"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "6610fa4e-accc-4e89-e2c5-9f4431498dbd",
+          "type": "integer",
+          "text": "Age of baby when Upper First Molar seen(12-18 Months)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 12
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 18
+            },
+            {
+              "url": "http://ehelse.no/fhir/StructureDefinition/validationtext",
+              "valueString": "Must be between 12-28 months"
+            }
+          ],
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperFirstMolar"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "39a89d85-993c-45cb-8e9a-de417ca00ed8",
+          "type": "date",
+          "text": "If present? Date seen.",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperFirstMolar"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "9efd1210-e8f6-44cf-89b5-5ddd9e967605",
+          "type": "integer",
+          "text": "Age of baby when Lower Second Molar seen(24-30 Months)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 24
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 30
+            },
+            {
+              "url": "http://ehelse.no/fhir/StructureDefinition/validationtext",
+              "valueString": "Must be between 24-30 months"
+            }
+          ],
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "lowerSecondMolar"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "14dadb0a-9fc4-4479-88dd-cb87d14353b1",
+          "type": "date",
+          "text": "If present? Date seen.",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "lowerSecondMolar"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "900f8e31-f8c8-47a8-8821-f6738099f293",
+          "type": "integer",
+          "text": "Age of baby when Upper Second Molar seen(24-30 Months)",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperSecondMolar"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "31897de0-7f30-4c2a-88e8-d04a815cef3d",
+          "type": "date",
+          "text": "If present? Date seen",
+          "required": false,
+          "enableWhen": [
+            {
+              "question": "bce1a121-541a-469c-a48b-5ffdfff9348a",
+              "operator": "=",
+              "answerCoding": {
+                "system": "urn:uuid:49ebdf19-62d2-4345-8d34-91dc028e508e",
+                "code": "upperSecondMolar"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

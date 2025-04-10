@@ -1,59 +1,60 @@
-package com.kabarak.kabarakmhis.pnc.diphtheria
+package com.kabarak.kabarakmhis.pnc.babyTeethRecord
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
+import com.kabarak.kabarakmhis.R
+import kotlinx.coroutines.launch
+import android.widget.Toast
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.datacapture.QuestionnaireFragment
-import com.kabarak.kabarakmhis.R
 import com.kabarak.kabarakmhis.network_request.requests.RetrofitCallsFhir
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DiphtheriaEdit : AppCompatActivity() {
-
+class BabyTeethEdit : AppCompatActivity() {
     private lateinit var retrofitCallsFhir: RetrofitCallsFhir
     private var questionnaireJsonString: String? = null
-    private lateinit var responseId: String // Define responseId globally
+    private lateinit var responseId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_child_edit)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_baby_teeth_edit)
 
-        // Initialize RetrofitCallsFhir
         retrofitCallsFhir = RetrofitCallsFhir()
-
-        // Load the questionnaire JSON
-        questionnaireJsonString = getStringFromAssets("diphtheria.json")
-
-        // Assign questionnaireResponseId to responseId
+        questionnaireJsonString = getStringFromAssets("BabyTeethRecords.json")
         responseId = intent.getStringExtra("responseId") ?: ""
 
         if (savedInstanceState == null && questionnaireJsonString != null) {
-            // Render the questionnaire
             renderInitialQuestionnaire()
-
-            // Fetch and populate the questionnaire response with the assigned responseId
             CoroutineScope(Dispatchers.IO).launch {
                 fetchAndPopulateQuestionnaireResponse(responseId)
             }
         }
 
-        // Listen for the submit request from the QuestionnaireFragment
         supportFragmentManager.setFragmentResultListener(
             QuestionnaireFragment.SUBMIT_REQUEST_KEY,
             this,
         ) { _, _ ->
-            Log.d("DiphtheriaEdit", "Submit request received")
-            submitUpdatedResponse()  // Call submission function when the form is submitted
+            Log.d("BabyTeethEdit", "Submit request received")
+            submitUpdatedResponse()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 
@@ -64,132 +65,119 @@ class DiphtheriaEdit : AppCompatActivity() {
             val buffer = ByteArray(size)
             inputStream.read(buffer)
             inputStream.close()
-            String(buffer, Charsets.UTF_8)
+            String(buffer)
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("BabyTeethEdit", "Error reading file $fileName", e)
             null
         }
     }
 
     private fun renderInitialQuestionnaire() {
-        // Render the empty questionnaire from the JSON file
-        val questionnaireFragment = QuestionnaireFragment.builder()
-            .setQuestionnaire(questionnaireJsonString!!)
-            .build()
-
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fragment_container_view, questionnaireFragment, "initial-questionnaire-fragment")
+            add(
+                R.id.fragment_container_view,
+                QuestionnaireFragment.builder()
+                    .setQuestionnaire(questionnaireJsonString!!)
+                    .build()
+            )
         }
     }
 
     private suspend fun fetchAndPopulateQuestionnaireResponse(responseId: String) {
-        // Fetch QuestionnaireResponse from the FHIR server
         retrofitCallsFhir.fetchQuestionnaireResponse(responseId, object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     val questionnaireResponseString = response.body()?.string()
-
                     if (questionnaireResponseString != null) {
                         CoroutineScope(Dispatchers.Main).launch {
                             try {
-                                // Parse the response into a FHIR QuestionnaireResponse object
                                 val fhirContext = FhirContext.forR4()
                                 val jsonParser = fhirContext.newJsonParser()
-                                val questionnaireResponse = jsonParser.parseResource(QuestionnaireResponse::class.java, questionnaireResponseString)
-
-                                // Populate the questionnaire with the retrieved response
+                                val questionnaireResponse = jsonParser.parseResource(
+                                    QuestionnaireResponse::class.java, questionnaireResponseString
+                                )
                                 populateQuestionnaireFragment(questionnaireResponse)
-
                             } catch (e: Exception) {
-                                Log.e("DiphtheriaEdit", "Error populating questionnaire", e)
-                                Toast.makeText(this@DiphtheriaEdit, "Error populating questionnaire", Toast.LENGTH_SHORT).show()
+                                Log.e("BabyTeethEdit", "Error populating questionnaire", e)
+                                Toast.makeText(this@BabyTeethEdit, "Error populating questionnaire", Toast.LENGTH_SHORT).show()
                             }
                         }
                     } else {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            Toast.makeText(this@DiphtheriaEdit, "Failed to retrieve the response data.", Toast.LENGTH_SHORT).show()
-                        }
+                        showToast("Failed to retrieve the response data.")
                     }
                 } else {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        Toast.makeText(this@DiphtheriaEdit, "Failed to fetch the questionnaire response: ${response.message()}", Toast.LENGTH_SHORT).show()
-                        Log.e("DiphtheriaEdit", "Failed to fetch response. Response code: ${response.code()}")
-                    }
+                    showToast("Failed to fetch the questionnaire response: ${response.message()}")
+                    Log.e("BabyTeethEdit", "Failed to fetch response. Response code: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    Toast.makeText(this@DiphtheriaEdit, "Error occurred while fetching: ${t.message}", Toast.LENGTH_SHORT).show()
-                    Log.e("Error", "Error occurred while fetching questionnaire response", t)
-                }
+                showToast("Error occurred while fetching: ${t.message}")
+                Log.e("Error", "Error occurred while fetching questionnaire response", t)
             }
         })
     }
 
     private fun populateQuestionnaireFragment(questionnaireResponse: QuestionnaireResponse) {
         try {
-            // Convert the QuestionnaireResponse back into a JSON string
             val fhirContext = FhirContext.forR4()
             val jsonParser = fhirContext.newJsonParser()
             val questionnaireResponseString = jsonParser.encodeResourceToString(questionnaireResponse)
 
-            // Prepare the bundle with both the Questionnaire and QuestionnaireResponse
             val questionnaireFragment = QuestionnaireFragment.builder()
-                .setQuestionnaire(questionnaireJsonString!!)  // Your Questionnaire JSON
-                .setQuestionnaireResponse(questionnaireResponseString)  // The populated QuestionnaireResponse JSON
+                .setQuestionnaire(questionnaireJsonString!!)
+                .setQuestionnaireResponse(questionnaireResponseString)
                 .build()
 
-            // Load the QuestionnaireFragment with the response
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace(R.id.fragment_container_view, questionnaireFragment, "populated-questionnaire-fragment")
             }
 
-            Log.d("DiphtheriaEdit", "Questionnaire response populated successfully.")
+            Log.d("BabyTeethEdit", "Questionnaire response populated successfully.")
         } catch (e: Exception) {
-            Log.e("DiphtheriaEdit", "Error initializing the questionnaire fragment or ViewModel", e)
+            Log.e("BabyTeethEdit", "Error initializing the questionnaire fragment", e)
             Toast.makeText(this, "Error initializing questionnaire", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // Submit updated data
     private fun submitUpdatedResponse() {
-        // Retrieve the updated QuestionnaireResponse from the fragment
         val fragment = supportFragmentManager.findFragmentByTag("populated-questionnaire-fragment") as? QuestionnaireFragment
         val updatedQuestionnaireResponse = fragment?.getQuestionnaireResponse()
 
         if (updatedQuestionnaireResponse != null) {
-            // Convert the updated QuestionnaireResponse into a JSON string
             val fhirContext = FhirContext.forR4()
             val jsonParser = fhirContext.newJsonParser()
             val updatedResponseString = jsonParser.encodeResourceToString(updatedQuestionnaireResponse)
 
-            // Submit the updated response back to the server
             retrofitCallsFhir.updateQuestionnaireResponse(responseId, updatedResponseString, object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
                         CoroutineScope(Dispatchers.Main).launch {
-                            Toast.makeText(this@DiphtheriaEdit, "Data updated successfully.", Toast.LENGTH_SHORT).show()
-                            // End the activity after successful submission
+                            Toast.makeText(this@BabyTeethEdit, "Data updated successfully.", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@BabyTeethEdit, BabyTeethDevelopmentRecord::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            startActivity(intent)
                             finish()
                         }
                     } else {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            Toast.makeText(this@DiphtheriaEdit, "Failed to update data: ${response.message()}", Toast.LENGTH_SHORT).show()
-                        }
+                        showToast("Failed to update data:")
+                        Log.d("Error Update data message", "$response")
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        Toast.makeText(this@DiphtheriaEdit, "Error occurred while updating: ${t.message}", Toast.LENGTH_SHORT).show()
-                    }
+                    showToast("Error occurred while updating: ${t.message}")
                 }
             })
         } else {
-            Toast.makeText(this, "Failed to retrieve updated response", Toast.LENGTH_SHORT).show()
+            showToast("Failed to retrieve updated response")
+        }
+    }
+    private fun showToast(message: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            Toast.makeText(this@BabyTeethEdit, message, Toast.LENGTH_SHORT).show()
         }
     }
 }
