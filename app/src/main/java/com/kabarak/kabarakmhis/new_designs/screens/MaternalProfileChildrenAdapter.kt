@@ -11,8 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kabarak.kabarakmhis.R
 import com.kabarak.kabarakmhis.helperclass.DbMaternalProfileChild
+
 import com.kabarak.kabarakmhis.immunisation.pnemococal_conjugate_vaccine.PnemococalConjugateServiceList
 import com.kabarak.kabarakmhis.immunisation.yellowfevervaccine.YellowFeverServiceList
+
 import com.kabarak.kabarakmhis.new_designs.antenatal_profile.AntenatalProfileView
 import com.kabarak.kabarakmhis.new_designs.birth_plan.BirthPlanView
 import com.kabarak.kabarakmhis.new_designs.chw.referral.ReferralView
@@ -29,25 +31,16 @@ import com.kabarak.kabarakmhis.new_designs.present_pregnancy.PresentPregnancyLis
 import com.kabarak.kabarakmhis.new_designs.previous_pregnancy.PreviousPregnancyList
 import com.kabarak.kabarakmhis.new_designs.tetanus_diptheria.PreventiveServiceList
 import com.kabarak.kabarakmhis.new_designs.weight_monitoring.WeightMonitoringChart
+import com.kabarak.kabarakmhis.pnc.ChildBirthView
 import com.kabarak.kabarakmhis.pnc.ChildViewActivity
-import com.kabarak.kabarakmhis.pnc.ImmunizationAdd
-import com.kabarak.kabarakmhis.pnc.bcgvacination.BcgAddActivity
-import com.kabarak.kabarakmhis.pnc.bcgvacination.BcgVaccinationViewActivity
-import com.kabarak.kabarakmhis.pnc.congenitalabnormalities.CongenitalAbnormalitiesAdd
-import com.kabarak.kabarakmhis.pnc.congenitalabnormalities.CongenitalAbnormalitiesViewActivity
-import com.kabarak.kabarakmhis.pnc.measlesimmunization.MeaslesImmunizationAddActivity
-import com.kabarak.kabarakmhis.pnc.measlesimmunization.MeaslesImmunizationViewActivity
-import com.kabarak.kabarakmhis.pnc.poliovacination.PolioAddActivity
-import com.kabarak.kabarakmhis.pnc.poliovacination.PolioVaccinationViewActivity
-
 import com.kabarak.kabarakmhis.pnc.child_civil_registration.ChildCivilRegistrationView
-// <<<<<<< features/diphtheria
 import com.kabarak.kabarakmhis.pnc.diphtheria.DiphtheriaView
 
 import com.kabarak.kabarakmhis.pnc.childpostnatalcare.ChildPncViewActivity
 import com.kabarak.kabarakmhis.immunisation.vitamin_a_supplimentary.VitaminAsupplimentaryView
 import com.kabarak.kabarakmhis.pnc.Other_Vaccines.VaccinesViewActivity
 import com.kabarak.kabarakmhis.pnc.babyTeethRecord.BabyTeethViewRecord
+
 
 
 class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternalProfileChild>,
@@ -102,11 +95,7 @@ class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternal
                 // ChildBirth
                 8.1 -> { context.startActivity(Intent(context, ChildViewActivity::class.java))}
                 // Early Identification of Congenital Abnormalities
-                8.2 -> { context.startActivity(Intent(context, CongenitalAbnormalitiesAdd::class.java))} //
-                8.21 -> { context.startActivity(Intent(context, ReferralView::class.java))} //
-                8.23 -> { context.startActivity(Intent(context, ReferralView::class.java))} //
-
-
+                8.2 -> { context.startActivity(Intent(context, ReferralView::class.java))} //
                 // Reproductive Organs Cancer Screening
                 8.3 -> { context.startActivity(Intent(context, ReferralView::class.java))}
                 // Family Planning
@@ -114,7 +103,7 @@ class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternal
                 // Postnatal Care - Mother
                 8.5 -> { context.startActivity(Intent(context, ReferralView::class.java))}
                 // Postnatal Care - Baby
-                8.6 -> { context.startActivity(Intent(context, ChildPncViewActivity::class.java))}
+                8.6 -> { context.startActivity(Intent(context, ReferralView::class.java))}
 
                 // Civil Registration
                 8.7 -> { context.startActivity(Intent(context, ChildCivilRegistrationView::class.java))}
@@ -159,6 +148,7 @@ class MaternalProfileChildrenAdapter(private var entryList: ArrayList<DbMaternal
                 10.9 -> { context.startActivity(Intent(context, PMTCTInterventionsView::class.java))} // Meningococcal vaccine
                 11.1 -> { context.startActivity(Intent(context, VaccinesViewActivity::class.java))} // Other vaccines as applicable
                 11.2 -> { context.startActivity(Intent(context, VitaminAsupplimentaryView::class.java))} // vitamin A
+
 
 
             }

@@ -1,0 +1,95 @@
+{
+    "resourceType": "Questionnaire",
+    "language": "nb-NO",
+    "status": "draft",
+    "publisher": "NHN",
+    "meta": {
+        "profile": [
+            "http://ehelse.no/fhir/StructureDefinition/sdf-Questionnaire"
+        ],
+        "tag": [
+            {
+                "system": "urn:ietf:bcp:47",
+                "code": "nb-NO",
+                "display": "Bokmål"
+            }
+        ],
+        "security": [
+            {
+                "code": "3",
+                "display": "Helsehjelp (Full)",
+                "system": "urn:oid:2.16.578.1.12.4.1.1.7618"
+            }
+        ]
+    },
+    "contact": [
+        {
+            "name": "http://www.nhn.no"
+        }
+    ],
+    "subjectType": [
+        "Patient"
+    ],
+    "extension": [
+        {
+            "url": "http://helsenorge.no/fhir/StructureDefinition/sdf-sidebar",
+            "valueCoding": {
+                "system": "http://helsenorge.no/fhir/ValueSet/sdf-sidebar",
+                "code": "1"
+            }
+        },
+        {
+            "url": "http://helsenorge.no/fhir/StructureDefinition/sdf-information-message",
+            "valueCoding": {
+                "system": "http://helsenorge.no/fhir/ValueSet/sdf-information-message",
+                "code": "1"
+            }
+        },
+        {
+            "url": "http://helsenorge.no/fhir/StructureDefintion/sdf-itemControl-visibility",
+            "valueCodeableConcept": {
+                "coding": [
+                    {
+                        "system": "http://helsenorge.no/fhir/CodeSystem/AttachmentRenderOptions",
+                        "code": "hide-help",
+                        "display": "Hide help texts"
+                    },
+                    {
+                        "system": "http://helsenorge.no/fhir/CodeSystem/AttachmentRenderOptions",
+                        "code": "hide-sublabel",
+                        "display": "Hide sublabel texts"
+                    }
+                ]
+            }
+        }
+    ],
+    "id": "900356e5-7ff3-4d03-82e3-361d4712640a",
+    "item": [
+        {
+            "linkId": "f46ae08a-3436-4000-8e8d-2240b0ad9dd7",
+            "type": "group",
+            "text": "IPV (Inactivated Polio Vaccine)\n",
+            "item": [
+                {
+                    "linkId": "488b292b-a2b6-4891-8357-b5de12da0e51",
+                    "type": "display",
+                    "text": " IPV (0.5mls) Dose at 14 weeks Intramuscular into the \nouter aspect of the right thigh 2.5cm (2 fingers apart) from \nthe site of PCV10 injection.",
+                    "required": false
+                },
+                {
+                    "linkId": "d59821e9-7b5f-4331-fd0f-057505fc3c3a",
+                    "type": "date",
+                    "text": "Date Given",
+                    "required": true
+                },
+                {
+                    "linkId": "5f8b913c-8c08-40cb-bcbf-04731d6d4e49",
+                    "type": "date",
+                    "text": "Date of next visit",
+                    "required": true
+                }
+            ],
+            "required": true
+        }
+    ]
+}
