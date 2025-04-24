@@ -310,3 +310,7 @@ data class DbFhirIdentifier(
     val id: String,
     val values: String
 )
+
+data class ReasonsForSpecialCare(
+    val values: List<String>
+)
