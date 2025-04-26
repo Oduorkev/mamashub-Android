@@ -36,7 +36,6 @@ import org.hl7.fhir.r4.model.QuestionnaireResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.UUID
 
 class ReasonsViewActivity : AppCompatActivity() {
     private var reasonsForSpecialCare: MutableList<ReasonsForSpecialCare> = mutableListOf()
@@ -90,7 +89,7 @@ class ReasonsViewActivity : AppCompatActivity() {
             val responseId = extractResponseId(id)
             Toast.makeText(this, "Response ID: $id", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this, ResponseEditActivity::class.java)
+            val intent = Intent(this, ReasonsEditActivity::class.java)
             intent.putExtra("responseId", responseId)
             startActivity(intent)
         }

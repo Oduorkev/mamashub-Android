@@ -19,7 +19,7 @@
         android:windowSoftInputMode="adjustPan"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".pnc.reasonsForSpecialCare.ResponseEditActivity"
+            android:name=".pnc.reasonsForSpecialCare.ReasonsEditActivity"
             android:exported="false" />
         <activity
             android:name=".pnc.microNutrients.MicroNutrientsAdd"
@@ -28,9 +28,6 @@
             android:name=".pnc.reasonsForSpecialCare.ReasonsAddActivity"
             android:exported="false"
             android:theme="@style/Theme.KabarakMHIS" />
-        <activity
-            android:name=".pnc.reasonsForSpecialCare.ReasonsSelectActivity"
-            android:exported="false" />
         <activity
             android:name=".pnc.reasonsForSpecialCare.ReasonsViewActivity"
             android:exported="false" />
