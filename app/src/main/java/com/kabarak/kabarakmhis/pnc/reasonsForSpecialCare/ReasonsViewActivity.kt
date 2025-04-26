@@ -20,8 +20,8 @@ import com.kabarak.kabarakmhis.R
 import com.kabarak.kabarakmhis.fhir.FhirApplication
 import com.kabarak.kabarakmhis.fhir.viewmodels.PatientDetailsViewModel
 import com.kabarak.kabarakmhis.helperclass.FormatterClass
-import com.kabarak.kabarakmhis.helperclass.ReasonsForSpecialCare
 import com.kabarak.kabarakmhis.network_request.requests.RetrofitCallsFhir
+import com.kabarak.kabarakmhis.pnc.data_class.ReasonsForSpecialCare
 import kotlinx.android.synthetic.main.activity_child_birth_view.tvANCID
 import kotlinx.android.synthetic.main.activity_child_birth_view.tvAge
 import kotlinx.android.synthetic.main.activity_child_birth_view.tvName
@@ -36,6 +36,7 @@ import org.hl7.fhir.r4.model.QuestionnaireResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.UUID
 
 class ReasonsViewActivity : AppCompatActivity() {
     private var reasonsForSpecialCare: MutableList<ReasonsForSpecialCare> = mutableListOf()
@@ -85,7 +86,14 @@ class ReasonsViewActivity : AppCompatActivity() {
         reasonsRc = findViewById(R.id.recycler_view_reasons)
         reasonsRc.layoutManager = LinearLayoutManager(this)
 
-        reasonsAdapter = ReasonsViewAdapter(reasonsForSpecialCare)
+        reasonsAdapter = ReasonsViewAdapter(reasonsForSpecialCare){ id ->
+            val responseId = extractResponseId(id)
+            Toast.makeText(this, "Response ID: $id", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, ResponseEditActivity::class.java)
+            intent.putExtra("responseId", responseId)
+            startActivity(intent)
+        }
         reasonsRc.adapter = reasonsAdapter
 
         retrofitCallsFhir = RetrofitCallsFhir()
@@ -235,32 +243,28 @@ class ReasonsViewActivity : AppCompatActivity() {
     ) {
 
         val reasons = mutableListOf<String>()
-        var reason: String?
+
         questionnaireResponse.item.forEach { item ->
             if (item.text == "Reason for Special Care (Tick as appropriate)") {
-                // Parse nested items
                 item.answer.forEach { answer ->
                     val display = (answer.value as? Coding)?.display
                     if (!display.isNullOrBlank()) {
                         reasons.add(display)
                     } else {
-                        val pattern = Regex("""Any other\(specify\)\s*_+""")
                         item.answer.firstOrNull()?.item?.forEach { subItem ->
-                            when {
-
-                                pattern.containsMatchIn(subItem.text) -> {
-                                    reason = subItem.answer.firstOrNull()?.valueStringType?.value
-                                    reason?.let { reasons.add(it) }
-                                }
-
+                            val pattern = Regex("""Any other\(specify\)\s*_+""")
+                            if (pattern.containsMatchIn(subItem.text)) {
+                                val reason = subItem.answer.firstOrNull()?.valueStringType?.value
+                                reason?.let { reasons.add(it) }
                             }
                         }
                     }
                 }
             }
-
-            reasonsForSpecialCare.add(ReasonsForSpecialCare(reasons))
         }
+        reasonsForSpecialCare.add(
+            ReasonsForSpecialCare(responseId, reasons)
+        )
 
     }
 
